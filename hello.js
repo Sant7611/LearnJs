@@ -636,7 +636,6 @@
 // const withdrawAccountNumber = document.querySelector("#withdrawAccountNumber");
 // const withdrawAmount = document.querySelector("#withdrawAmount");
 
-
 // let accounts = [];
 
 // addform.addEventListener("submit", (e) => {
@@ -656,7 +655,6 @@
 //   console.log(accounts);
 // });
 
-
 // withdrawForm.addEventListener("submit", (e) => {
 //   e.preventDefault();
 //   let account = accounts.find(
@@ -666,7 +664,6 @@
 
 //   console.log(accounts);
 // });
-
 
 // function BankAccount(customerName, balance = 0){
 //   this.customerName = customerName;
@@ -709,27 +706,200 @@
 
 // console.log(ramAccount, johnAccount);
 
+// class BankAccount{
+//   constructor(customerName, balance = 0){
+//     this.customerName = customerName;
+//     this.balance = balance;
+//     this.accountNumber = Math.floor(Math.random() * 10000000000);
+//   }
 
-class BankAccount{
-  constructor(customerName, balance = 0){
-    this.customerName = customerName;
-    this.balance = balance;
-    this.accountNumber = Math.floor(Math.random() * 10000000000);
+//   deposit(amount){
+//     this.amount += amount;
+//   }
+
+//   withdraw(amount){
+//     this.amount -= amount;
+//   }
+
+// }
+
+// const ramAccount = new BankAccount("Ram Thapa", 5000);
+// const johnAccount = new BankAccount("John Doe", 5000);
+
+// console.log(ramAccount, johnAccount);
+
+// Behaviour of Javascript:
+// Codes is executed in js in line by line
+// js is single threaded synchronous
+
+//default behaviour of js is synchronous.
+
+// js uses stack to store programs and codes
+// stack is just an empty container that contains gec and ec
+// when js is run a stack is made and initially GEC (global execution Context ) is created
+// execution context is created whenever a function is called.
+
+// each execution context has multiple phases normally 2 phases. in the first phase variables are allocated i.e memory allocation is performed in the second phase the executions take place.
+
+// stack works in last in first out (LIFO)
+
+//(imp) what is the difference betn synchronous and asynchornous programming
+// in synchronous behaviour only one thread is executed at a time. eg. in atm machine only one user can use it at once.
+//in asynchronous behaviour multiple thread is runned. execution takes place parallelly and each thread is independent from each other. you don;t have to wait fro others. if you get the response then you can continue.
+
+// console.log("Hello World");
+// function Display(){
+//   for(let i = 0; i < 10; i++){
+//     console.log(i);
+//   }
+// }
+
+// Display();
+
+// //There is a eventloop mechanism in js for asynchronous programming in js. Asynchronous behaviour can also be achieved by using setTimeout().
+// // setTimeout(() => {
+// //   alert("I love js")
+// // }, 2000);;
+// console.log("Hey Dear");
+
+//Asynchronous Program continue(Callback function and CallBack Hell)
+
+// high-order function vs callback function ############very imp for interview
+
+// function sum(a,b, cb){
+//   const ans = a+b;
+//   cb(ans);
+// }
+
+// function display(result){
+//   const h1 = document.createElement('h1');
+//   h1.innerText = `The sum of Result is ${result}`;
+//   document.body.append(h1);
+// }
+
+// // kunai pani function ko argument function pass vayo vane that is call back
+// high order vs callback function
+
+// sum(2,3, display);
+
+// let arr = [4, 5, 6, 7, 8, 9];
+// function Calculate(arr = [], cb) {
+//   let ans = [];
+//   for (let i = 0; i < arr.length; i++) {
+//     // ans.push(arr[i] * 10);
+//     const element = cb(arr[i]);
+//     ans.push(element);
+//   }
+//   console.log(ans);
+// }
+
+// const Divide = (a) => {
+//   return a / 10;
+// };
+
+// //function is sent as a parameter
+// Calculate(arr, Divide);
+
+// //arrow function is used
+// Calculate(arr, (a) => {
+//   return a * 10;
+// });
+
+// //arrow function used without curly braces. this is the advanced of using arrow function.
+// Calculate(arr, (a) => a * 10);
+
+// arr.forEach((value, index) => {});
+
+// // Callback hell is the situation when we require multiple callbacks. multiple nested callbacks are used. if there is any error in callbacks it is callback hell
+// let products = [];
+// const AddProduct = (cb) => {
+//   setTimeout(() => {
+//     products.push(
+//       { id: 1, name: "Dr. martin", price: 8000, inStock: true },
+//       { id: 2, name: "Air Force 1", price: 5000, inStock: true }
+//     );
+
+//     setTimeout(() => {
+//       console.log("hello");
+//     }, 1000)
+
+//     cb();
+//     console.log(products);
+//   }, 4000);
+// };
+
+// const DisplayProduct = () => {
+//     setTimeout(() => {
+//       products.forEach((product)=>{
+//         const h1 = document.createElement("h1");
+//         h1.innerText = product.name;
+//         document.body.append(h1);
+//       });
+//     }, 1000);
+// };
+
+// AddProduct(DisplayProduct);
+
+//  a !!Promise
+
+//this is js object
+// There are three phases in promise i.e
+// ------pending
+// ------fulfilled
+// ------rejected
+
+//then ===== fulfill
+//catch ===== Promise
+//finally ===== neutral
+
+//method handling:    then le reject, catch le rejected
+
+// const res = new Promise((resolve, rejected) => {
+//   let success = true;
+//   if (success) {
+//     resolve("Promise Fulfilled");
+//   } else {
+//     rejected("Promise rejected");
+//   }
+// });
+
+// res.then((param) => console.log(param)).catch((error) => console.log(error));
+
+// // //Javscript Object Notation (JSON) and Fetch API
+
+// //Fetch using promise
+// const fetchedData = () => {
+//   fetch(`https://catfact.ninja/fact`)
+//     .then((res) => res.json())
+//     .then((data) => {
+//       const h1 = document.createElement('h1');
+//       h1.innerHTML = data.fact;
+//       document.body.append(h1);
+//     })
+//     .catch((error) => console.log(error)); // helps in requesting http method i.e post, put, delete, get, update
+// };
+
+// fetchedData();
+
+//Async and await in Javascript.
+const fetchedData = async () => {
+  // async is used to make the function asynchronous.
+  try {
+    const res = await fetch(`https://catfact.ninja/facts`); // fetch() method returns promise and await keyword is used to wait the result for sometime
+    const data = await res.json();
+    const facts = data.data;
+    // const h1 = document.createElement("h1");
+    // h1.innerText = data.fact;
+    // document.body.append(h1);
+    // console.log(facts);
+    facts.forEach((value, index) => {
+      const h1 = document.createElement('h1');
+      h1.innerText = value.fact;
+      document.body.append(h1);
+    });
+  } catch(error) {
+    console.log(error);
   }
+};
 
-  deposit(amount){
-    this.amount += amount;
-  }
-
-  withdraw(amount){
-    this.amount -= amount; 
-  }
-
-}
-
-const ramAccount = new BankAccount("Ram Thapa", 5000);
-const johnAccount = new BankAccount("John Doe", 5000);
-
-
-
-console.log(ramAccount, johnAccount);
+fetchedData();
