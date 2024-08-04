@@ -7,7 +7,7 @@ const form = document.querySelector("form");
 const input = document.querySelector(".searchField");
 
 let target = "Kathmandu";
-const fetchedData = async () => {
+const fetchedData = async (target) => {
   try {
     const res = await fetch(
       `https://api.weatherapi.com/v1/current.json?key=ef644cdec39a48629e124631240408&q=${target}`
@@ -29,7 +29,9 @@ const fetchedData = async () => {
     const exactDate = localtime.split(" ")[0];
 
     const currentDay = new Date();
-    dateField.innerHTML = `${exactTime} ${exactTime}`;
+    let newDate = getTodaysDay(currentDay.getDay());
+
+    dateField.innerHTML = `${exactTime} - ${newDate} ${exactDate}`;
 
     console.log(data, icon, localtime, exactDate, exactTime);
   } catch (error) {
@@ -37,7 +39,17 @@ const fetchedData = async () => {
   }
 };
 
-fetchedData();
+fetchedData(target);
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if(input.value.trim === ""){
+    alert("Please enter your location");
+  }else{
+    target = input.value;
+    fetchedData(target);
+  }
+});
 
 function getTodaysDay(num) {
   switch (num) {
